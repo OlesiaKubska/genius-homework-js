@@ -1,220 +1,94 @@
-//замикання
+// --1--
+// 1) написати об*єкт студента який буде виводити ім*я, спеціальнісь, середній
+// бал і кількість пропущених занять
+// 2) написати метод який буде виводити цю інформацію
+// 3) написати три варіанти студентів
+// 4) прикріпити знначення за допомогою call apply bind
 
-// function createUrl(domain) {
-//   return function (url) {
-//     return `https://${url}.${domain}`;
-//   };
+// --1--
+// const student1 = {
+//     name: "John Doe",
+//     specialty: "Computer Science",
+//     averageGrade: 4.5,
+//     missedClasses: 2,
+// };
+
+// const student2 = {
+//     name: "Jane Smith",
+//     specialty: "Mathematics",
+//     averageGrade: 4.8,
+//     missedClasses: 1,
+// };
+
+// const student3 = {
+//     name: "Alice Johnson",
+//     specialty: "Physics",
+//     averageGrade: 4.2,
+//     missedClasses: 3,
+// };
+
+// function displayStudentInfo() {
+//     console.log(`Name: ${this.name}`);
+//     console.log(`Specialty: ${this.specialty}`);
+//     console.log(`Average Grade: ${this.averageGrade}`);
+//     console.log(`Missed Classes: ${this.missedClasses}`);
 // }
 
-// const comUrl = createUrl("com");
-// const comUa = createUrl("ua");
+// // Using call to display information for each student
+// displayStudentInfo.call(student1);
+// displayStudentInfo.call(student2);
+// displayStudentInfo.call(student3);
 
-// console.log(comUrl("google"));
-// console.log(comUrl("fb"));
+// // Using apply to display information for each student
 
-// console.log(comUa("google"));
-// console.log(comUa("fb"));
+// displayStudentInfo.apply(student1);
+// displayStudentInfo.apply(student2);
+// displayStudentInfo.apply(student3);
 
-//_________________________//
-//_________________________//
-//this
+// // Using bind to create a new function for each student
 
-// function hello() {
-//   console.log("hello", this);
+// const displayStudent1Info = displayStudentInfo.bind(student1);
+// const displayStudent2Info = displayStudentInfo.bind(student2);
+// const displayStudent3Info = displayStudentInfo.bind(student3);
+
+// displayStudent1Info(); // Call the bound function for student 1
+// displayStudent2Info(); // Call the bound function for student 2
+// displayStudent3Info(); // Call the bound function for student 3
+
+
+
+// --2--
+// Написати дві кнопки і закріпити на них функції
+// при натисканні на кнопку html - має видати коротке визначення що це таке
+// при натисканні на кнопку css - має видати коротке визначення що це таке
+
+function showHtmlInfo() {
+    document.getElementById('info').textContent =
+      'HTML (HyperText Markup Language) — це мова розмітки, яка використовується для створення структури веб-сторінок.';
+  }
+
+  function showCssInfo() {
+    document.getElementById('info').textContent =
+      'CSS (Cascading Style Sheets) — це мова стилів, яка використовується для оформлення вигляду HTML-елементів на веб-сторінці.';
+  }
+
+
+// --3--
+// Написати функцію магазин, яка отримує назву товару, ціну за кг і кількість товару
+// функція має повертати назву товару і вартість
+// перевірити на варіантах:
+// 1) banana 30, 4,5
+// 2) cherry 58, 1,3
+// 3) orange 89. 3,4
+
+
+// function store(productName, pricePerKg, quantity) {
+//     const totalCost = pricePerKg * quantity;
+//     return `Product: ${productName}, Total Cost: ${totalCost}`;
 // }
 
-// hello();
+// // Test cases
 
-// const user = {
-//   name: "Ivan",
-//   city: "Odesa",
-//   sayHello: hello,
-// };
-
-// user.sayHello();
-//-----
-
-// function abc() {
-//   console.log("В функції");
-//   console.log(this);
-// }
-
-// abc();
-
-// document.querySelector("p").onclick = abc;
-
-// function changeColor() {
-//   this.style.background = "green";
-// }
-
-// // document.querySelector("div").onclick = changeColor;
-
-// let user = document.querySelectorAll("div");
-
-// user.forEach(function (element) {
-//   element.onclick = changeColor;
-// });
-
-//-----------
-
-// const showList = () => {
-//   console.log(this);
-// };
-
-// showList();
-
-// const list = {
-//   names: ["Ann", "Olga", "Nata"],
-//   showList: showList,
-// };
-
-// list.showList();
-
-//========= bind
-
-// function hello() {
-//   console.log(this);
-// }
-
-// const user = {
-//   name: "Ivan",
-//   age: 30,
-//   hello: hello,
-//   sayHelloWindow: hello.bind(window),
-//   info: function (city) {
-//     console.log(`Name is ${this.name}`);
-//     console.log(`Age is ${this.age}`);
-//     console.log(`City is ${city}`);
-//   },
-// };
-
-// const Ann = {
-//   name: "Anna",
-//   age: 23,
-// };
-
-// const Nata = {
-//   name: "Natalia",
-//   age: 50,
-// };
-
-// user.info.bind(Ann)("Kyiv");
-
-// const nataInfo = user.info.bind(Nata, "Odesa");
-// nataInfo();
-
-//========= call
-
-// const userInfo = {
-//   name: "name",
-//   age: 98,
-//   logInfo: function (job) {
-//     console.group(`${name} info:`);
-//     console.log(`Name is : ${this.name}`);
-//     console.log(`Age is : ${this.age}`);
-//     console.log(`Job is : ${job}`);
-//     console.groupEnd();
-//   },
-// };
-
-// const Vano = {
-//   name: "Ivan",
-//   age: 45,
-// };
-
-// userInfo.logInfo.call(Vano, "developer");
-
-//apply
-
-// const showUserInfo = {
-//   name: name,
-//   age: 87,
-//   logInfo: function (job, city) {
-//     console.group(`${name} info:`);
-//     console.log(`Name is : ${this.name}`);
-//     console.log(`Age is : ${this.age}`);
-//     console.log(`Job is : ${job}`);
-//     console.log(`City is : ${city}`);
-//     console.groupEnd();
-//   },
-// };
-
-// const Vano = {
-//   name: "Ivan",
-//   age: 45,
-// };
-
-// showUserInfo.logInfo.apply(Vano, ["developer", "Lviv"]);
-
-///////////////////////////////////
-///////////////////////////////////
-
-// const message = function (name, stars) {
-//   console.log(`${name}, Welcome to ${this.hotel}, stars ${stars}`);
-// };
-
-// const Bukovel = { hotel: "Bukovel" };
-// const Turist = { hotel: "Turist" };
-
-// message.call(Bukovel, "Ivan", "5");
-// message.call(Turist, "Ivan", "3");
-
-// message.apply(Bukovel, ["Ivan", "5"]);
-// message.apply(Turist, ["Ivan", "3"]);
-
-// message.bind(Bukovel, "Ivan", "5")();
-// message.bind(Turist, "Ivan", "3")();
-
-////////
-
-// const cart = {
-//   showItems() {
-//     console.log("В корзині: ", this.items);
-//   },
-// };
-
-// const woman = {
-//   items: ["Сукня, туфлі"],
-// };
-
-// const man = {
-//   items: ["Костюм, рубашка"],
-// };
-
-// const child = {
-//   items: ["майка, шорти"],
-// };
-
-// document
-//   .querySelector("#wom")
-//   .addEventListener("click", cart.showItems.bind(woman));
-
-// document
-//   .querySelector("#man")
-//   .addEventListener("click", cart.showItems.bind(man));
-
-// document
-//   .querySelector("#kid")
-//   .addEventListener("click", cart.showItems.bind(child));
-// ////
-
-// const infoCar = {
-//   name: "BMW",
-//   model: "M7",
-//   color: "white",
-//   showInfo: function () {
-//     console.log(
-//       "Car: " + this.name + " model: " + this.model + " color: " + this.color
-//     );
-//   },
-// };
-
-// car2 = {
-//   name: "Opel",
-//   model: "XXX",
-//   color: "red",
-// };
-
-// infoCar.showInfo.bind(car2)();
-// infoCar.showInfo.call(car2);
-// infoCar.showInfo.apply(car2);
+// console.log(store("Banana", 30, 4.5)); // Product: Banana, Total Cost: 135
+// console.log(store("Cherry", 58, 1.3)); // Product: Cherry, Total Cost: 75.4
+// console.log(store("Orange", 89, 3.4)); // Product: Orange, Total Cost: 302.6
